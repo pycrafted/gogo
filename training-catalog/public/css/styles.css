@@ -1,0 +1,311 @@
+/* Styles personnalisés pour l'application de catalogue de formations */
+
+/* Variables CSS pour la cohérence des couleurs */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
+/* Styles généraux */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navigation */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+
+/* Header */
+h1 {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    color: white;
+    border-radius: 15px 15px 0 0 !important;
+    border: none;
+}
+
+/* Table styles */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, var(--dark-color), #495057);
+    color: white;
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+    transform: scale(1.01);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color), #146c43);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color), #b02a37);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-color), #e0a800);
+}
+
+/* Form controls */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.input-group-text {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    color: white;
+    border: none;
+    border-radius: 8px 0 0 8px;
+}
+
+/* Modal styles */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    color: white;
+    border-radius: 15px 15px 0 0;
+    border: none;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+/* Toast styles */
+.toast {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toast-header {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    color: white;
+    border-radius: 10px 10px 0 0;
+    border: none;
+}
+
+/* Loading spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Action buttons in table */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+}
+
+.btn-group .btn {
+    margin-right: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    .btn-sm {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+    
+    .modal-dialog {
+        margin: 10px;
+    }
+}
+
+/* Animation for table rows */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table tbody tr {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+/* Status badges */
+.badge {
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Search and filter section */
+.input-group {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* No data message */
+#noDataMessage {
+    padding: 3rem 1rem;
+    font-size: 1.1rem;
+}
+
+#noDataMessage i {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+/* Form validation styles */
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* Hover effects for interactive elements */
+.nav-link:hover,
+.btn:hover,
+.form-control:hover,
+.form-select:hover {
+    cursor: pointer;
+}
+
+/* Focus states for accessibility */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .btn,
+    .modal,
+    .toast-container {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+    
+    .table {
+        border: 1px solid #dee2e6;
+    }
+} 

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Catalogue de Formations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🔧 Administration</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">📚 Retour au catalogue</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showParticipants()">👥 Participants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showTrainings()">📋 Formations</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container mt-4">
+        <!-- Section Participants -->
+        <div id="participantsSection" style="display: none;">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">👥 Gestion des Participants</h5>
+                    <div>
+                        <select class="form-select form-select-sm d-inline-block w-auto me-2" id="trainingFilter" onchange="filterParticipants()">
+                            <option value="">Toutes les formations</option>
+                        </select>
+                        <span class="badge bg-primary" id="participantCount">0</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Formation</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Téléphone</th>
+                                    <th>Entreprise</th>
+                                    <th>Poste</th>
+                                    <th>Statut</th>
+                                    <th>Date d'inscription</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="participantsTableBody">
+                                <!-- Les participants seront chargés ici -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Formations -->
+        <div id="trainingsSection" style="display: none;">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">📋 Gestion des Formations</h5>
+                    <div>
+                        <button class="btn btn-primary btn-sm" onclick="showAddForm()">➕ Ajouter une formation</button>
+                        <span class="badge bg-primary ms-2" id="trainingCount">0</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Domaine</th>
+                                    <th>Titre</th>
+                                    <th>Lieu</th>
+                                    <th>Date</th>
+                                    <th>Durée</th>
+                                    <th>Prix</th>
+                                    <th>Participants</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTrainingsTableBody">
+                                <!-- Les formations seront chargées ici -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques -->
+        <div id="statsSection" class="mt-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">📊 Statistiques</h5>
+                            <p class="card-text">Total participants: <span id="totalParticipants">0</span></p>
+                            <p class="card-text">Total formations: <span id="totalTrainings">0</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">✅ Inscriptions récentes</h5>
+                            <p class="card-text">Aujourd'hui: <span id="todayRegistrations">0</span></p>
+                            <p class="card-text">Cette semaine: <span id="weekRegistrations">0</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">📈 Top formations</h5>
+                            <div id="topTrainings">
+                                <!-- Top formations sera chargé ici -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Détails Participant -->
+    <div class="modal fade" id="participantModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">👤 Détails du participant</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="participantDetails">
+                    <!-- Les détails du participant seront chargés ici -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-warning" onclick="editParticipant()">Modifier</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteParticipant()">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Édition Participant -->
+    <div class="modal fade" id="editParticipantModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">✏️ Modifier le participant</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editParticipantForm">
+                        <input type="hidden" id="editParticipantId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editFirstName" class="form-label">Prénom *</label>
+                                <input type="text" class="form-control" id="editFirstName" required maxlength="100">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editLastName" class="form-label">Nom *</label>
+                                <input type="text" class="form-control" id="editLastName" required maxlength="100">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editEmail" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="editEmail" required maxlength="255">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editPhone" class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="editPhone" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editCompany" class="form-label">Entreprise</label>
+                                <input type="text" class="form-control" id="editCompany" maxlength="255">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editPosition" class="form-label">Poste</label>
+                                <input type="text" class="form-control" id="editPosition" maxlength="255">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editTrainingId" class="form-label">Formation *</label>
+                                <select class="form-select" id="editTrainingId" required>
+                                    <!-- Les formations seront chargées ici -->
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editStatus" class="form-label">Statut</label>
+                                <select class="form-select" id="editStatus">
+                                    <option value="pending">En attente</option>
+                                    <option value="confirmed">Confirmé</option>
+                                    <option value="cancelled">Annulé</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNotes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="editNotes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" onclick="saveParticipant()">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast pour les notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="notificationToast" class="toast" role="alert">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastTitle">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastMessage"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html> 

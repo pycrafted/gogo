@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Inscription</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>🧪 Test d'inscription</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>Test API Participants</h5>
+            </div>
+            <div class="card-body">
+                <form id="testForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="training_id" class="form-label">Formation ID</label>
+                            <input type="number" class="form-control" id="training_id" value="1" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="first_name" value="Test" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="last_name" value="Browser" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" value="testbrowser@example.com" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="phone" value="0123456789">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="company" class="form-label">Entreprise</label>
+                            <input type="text" class="form-control" id="company" value="TestCorp">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="position" class="form-label">Poste</label>
+                            <input type="text" class="form-control" id="position" value="Développeur">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="notes" class="form-label">Notes</label>
+                            <input type="text" class="form-control" id="notes" value="Test navigateur">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tester l'inscription</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Résultat</h5>
+            </div>
+            <div class="card-body">
+                <pre id="result">En attente du test...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Envoi en cours...';
+            
+            const formData = {
+                training_id: parseInt(document.getElementById('training_id').value),
+                first_name: document.getElementById('first_name').value,
+                last_name: document.getElementById('last_name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company: document.getElementById('company').value,
+                position: document.getElementById('position').value,
+                notes: document.getElementById('notes').value
+            };
+            
+            try {
+                console.log('Données envoyées:', formData);
+                
+                const response = await fetch('/api/participants.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log('Status:', response.status);
+                console.log('Headers:', response.headers);
+                
+                const responseText = await response.text();
+                console.log('Response text:', responseText);
+                
+                let result = `Status: ${response.status}\n`;
+                result += `Headers: ${JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2)}\n\n`;
+                result += `Response: ${responseText}`;
+                
+                resultDiv.textContent = result;
+                
+                if (response.ok) {
+                    resultDiv.style.color = 'green';
+                } else {
+                    resultDiv.style.color = 'red';
+                }
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                resultDiv.textContent = `Erreur: ${error.message}`;
+                resultDiv.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html> 

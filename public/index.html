@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue de Formations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">📚 Catalogue de Formations</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAddForm()">➕ Ajouter une formation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showParticipants()">👥 Participants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.html">🔧 Administration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container mt-4">
+        <!-- Section de recherche et filtres -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Rechercher une formation...">
+                    <button class="btn btn-outline-secondary" type="button" onclick="searchTrainings()">🔍 Rechercher</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" id="domainFilter" onchange="filterByDomain()">
+                    <option value="">Tous les domaines</option>
+                    <option value="Informatique">Informatique</option>
+                    <option value="Management">Management</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Ressources Humaines">Ressources Humaines</option>
+                    <option value="Communication">Communication</option>
+                    <option value="Vente">Vente</option>
+                    <option value="Logistique">Logistique</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tableau des formations -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">📋 Liste des Formations</h5>
+                <span class="badge bg-primary" id="trainingCount">0</span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Domaine</th>
+                                <th>Titre</th>
+                                <th>Lieu</th>
+                                <th>Date</th>
+                                <th>Durée</th>
+                                <th>Prix</th>
+                                <th>Animateurs</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trainingsTableBody">
+                            <!-- Les formations seront chargées ici -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ajout/Modification Formation -->
+    <div class="modal fade" id="trainingModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Ajouter une formation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="trainingForm">
+                        <input type="hidden" id="trainingId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="domain" class="form-label">Domaine *</label>
+                                <select class="form-select" id="domain" required>
+                                    <option value="">Sélectionner un domaine</option>
+                                    <option value="Informatique">Informatique</option>
+                                    <option value="Management">Management</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Ressources Humaines">Ressources Humaines</option>
+                                    <option value="Communication">Communication</option>
+                                    <option value="Vente">Vente</option>
+                                    <option value="Logistique">Logistique</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="title" class="form-label">Titre *</label>
+                                <input type="text" class="form-control" id="title" required maxlength="255">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Lieu *</label>
+                                <input type="text" class="form-control" id="location" required maxlength="100">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="date" class="form-label">Date *</label>
+                                <input type="date" class="form-control" id="date" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="duration" class="form-label">Durée (jours) *</label>
+                                <input type="number" class="form-control" id="duration" required min="1" max="30">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="price" class="form-label">Prix (€) *</label>
+                                <input type="number" class="form-control" id="price" required min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="animators" class="form-label">Animateurs *</label>
+                            <textarea class="form-control" id="animators" rows="2" required placeholder="Nom(s) des animateur(s)"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="program" class="form-label">Programme *</label>
+                            <textarea class="form-control" id="program" rows="6" required placeholder="Détail du programme jour par jour..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTraining()">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Programme -->
+    <div class="modal fade" id="programModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">📖 Programme de la formation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="programContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-success" onclick="registerToTraining()">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmation Suppression -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">⚠️ Confirmation de suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer cette formation ?</p>
+                    <p class="text-danger"><strong>Cette action est irréversible.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast pour les notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="notificationToast" class="toast" role="alert">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastTitle">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastMessage"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html> 
