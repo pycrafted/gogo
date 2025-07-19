@@ -92,7 +92,8 @@ function formatDateForInput($date) {
  * @return string Prix formaté en euros
  */
 function formatPrice($price) {
-    return number_format($price, 2, ',', ' ') . ' €';
+    if (!$price) return 'N/A';
+    return number_format($price, 0, ',', ' ') . ' F CFA';
 }
 
 /**
@@ -158,55 +159,74 @@ function validateTrainingData($data) {
  * @return array Tableau avec 'valid' (bool) et 'errors' (array)
  */
 function validateParticipantData($data) {
+    error_log("=== HELPERS - DEBUT DE VALIDATION ===");
+    error_log("Données à valider: " . print_r($data, true));
+    
     $errors = [];
     
     // Validation de la formation
     if (!isset($data['training_id']) || !is_numeric($data['training_id']) || $data['training_id'] <= 0) {
         $errors[] = 'La formation est requise';
+        error_log("Erreur validation: formation invalide - " . ($data['training_id'] ?? 'non défini'));
     }
     
     // Validation du prénom
     if (!isset($data['first_name']) || empty(trim($data['first_name']))) {
         $errors[] = 'Le prénom est requis';
+        error_log("Erreur validation: prénom manquant");
     } elseif (strlen($data['first_name']) > 100) {
         $errors[] = 'Le prénom ne doit pas dépasser 100 caractères';
+        error_log("Erreur validation: prénom trop long - " . strlen($data['first_name']) . " caractères");
     }
     
     // Validation du nom
     if (!isset($data['last_name']) || empty(trim($data['last_name']))) {
         $errors[] = 'Le nom est requis';
+        error_log("Erreur validation: nom manquant");
     } elseif (strlen($data['last_name']) > 100) {
         $errors[] = 'Le nom ne doit pas dépasser 100 caractères';
+        error_log("Erreur validation: nom trop long - " . strlen($data['last_name']) . " caractères");
     }
     
     // Validation de l'email
     if (!isset($data['email']) || empty(trim($data['email']))) {
         $errors[] = 'L\'email est requis';
+        error_log("Erreur validation: email manquant");
     } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'L\'email n\'est pas valide';
+        error_log("Erreur validation: email invalide - " . $data['email']);
     } elseif (strlen($data['email']) > 255) {
         $errors[] = 'L\'email ne doit pas dépasser 255 caractères';
+        error_log("Erreur validation: email trop long - " . strlen($data['email']) . " caractères");
     }
     
     // Validation du téléphone (optionnel)
     if (isset($data['phone']) && !empty($data['phone']) && strlen($data['phone']) > 20) {
         $errors[] = 'Le téléphone ne doit pas dépasser 20 caractères';
+        error_log("Erreur validation: téléphone trop long - " . strlen($data['phone']) . " caractères");
     }
     
     // Validation de l'entreprise (optionnel)
     if (isset($data['company']) && !empty($data['company']) && strlen($data['company']) > 255) {
         $errors[] = 'L\'entreprise ne doit pas dépasser 255 caractères';
+        error_log("Erreur validation: entreprise trop longue - " . strlen($data['company']) . " caractères");
     }
     
     // Validation du poste (optionnel)
     if (isset($data['position']) && !empty($data['position']) && strlen($data['position']) > 255) {
         $errors[] = 'Le poste ne doit pas dépasser 255 caractères';
+        error_log("Erreur validation: poste trop long - " . strlen($data['position']) . " caractères");
     }
     
-    return [
+    $result = [
         'valid' => empty($errors),
         'errors' => $errors
     ];
+    
+    error_log("Résultat validation: " . print_r($result, true));
+    error_log("=== HELPERS - FIN DE VALIDATION ===");
+    
+    return $result;
 }
 
 /**
@@ -229,21 +249,48 @@ function sanitizeTrainingData($data) {
 
 /**
  * Nettoie les données d'un participant
- * @param array $data Données à nettoyer
+ * @param array $data Données brutes
  * @return array Données nettoyées
  */
 function sanitizeParticipantData($data) {
-    return [
-        'training_id' => isset($data['training_id']) ? (int) $data['training_id'] : 0,
-        'first_name' => isset($data['first_name']) ? sanitizeInput($data['first_name']) : '',
-        'last_name' => isset($data['last_name']) ? sanitizeInput($data['last_name']) : '',
-        'email' => isset($data['email']) ? strtolower(trim($data['email'])) : '',
-        'phone' => isset($data['phone']) ? sanitizeInput($data['phone']) : '',
-        'company' => isset($data['company']) ? sanitizeInput($data['company']) : '',
-        'position' => isset($data['position']) ? sanitizeInput($data['position']) : '',
-        'status' => isset($data['status']) ? sanitizeInput($data['status']) : 'pending',
-        'notes' => isset($data['notes']) ? sanitizeInput($data['notes']) : ''
-    ];
+    error_log("=== HELPERS - DEBUT DE NETTOYAGE ===");
+    error_log("Données brutes reçues: " . print_r($data, true));
+    
+    $clean = [];
+    
+    // Nettoyage des champs obligatoires
+    $clean['training_id'] = isset($data['training_id']) ? (int) $data['training_id'] : 0;
+    $clean['first_name'] = isset($data['first_name']) ? trim(strip_tags($data['first_name'])) : '';
+    $clean['last_name'] = isset($data['last_name']) ? trim(strip_tags($data['last_name'])) : '';
+    $clean['email'] = isset($data['email']) ? trim(strtolower($data['email'])) : '';
+    
+    // Nettoyage des champs optionnels
+    $clean['phone'] = isset($data['phone']) ? trim(strip_tags($data['phone'])) : '';
+    $clean['company'] = isset($data['company']) ? trim(strip_tags($data['company'])) : '';
+    $clean['position'] = isset($data['position']) ? trim(strip_tags($data['position'])) : '';
+    $clean['notes'] = isset($data['notes']) ? trim(strip_tags($data['notes'])) : '';
+    
+    // Nettoyage du statut (important pour les mises à jour)
+    if (isset($data['status'])) {
+        $status = trim(strtolower($data['status']));
+        // Valider que le statut est autorisé
+        $allowedStatuses = ['pending', 'confirmed', 'cancelled'];
+        if (in_array($status, $allowedStatuses)) {
+            $clean['status'] = $status;
+            error_log("Statut nettoyé et validé: $status");
+        } else {
+            error_log("Statut invalide reçu: $status, utilisation de 'pending' par défaut");
+            $clean['status'] = 'pending';
+        }
+    } else {
+        error_log("Aucun statut reçu, utilisation de 'pending' par défaut");
+        $clean['status'] = 'pending';
+    }
+    
+    error_log("Données nettoyées: " . print_r($clean, true));
+    error_log("=== HELPERS - FIN DE NETTOYAGE ===");
+    
+    return $clean;
 }
 
 /**

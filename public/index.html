@@ -3,46 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogue de Formations</title>
+    <title>Institut Mansa Moussa - Découvrez nos Formations</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">📚 Catalogue de Formations</a>
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-mortarboard-fill me-2"></i>
+                Institut Mansa Moussa
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <!-- Liens de navigation à gauche -->
+                </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showAddForm()">➕ Ajouter une formation</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showParticipants()">👥 Participants</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="admin.html">🔧 Administration</a>
+                        <a class="nav-link" href="login.html">🔧 Administration</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Contenu principal -->
-    <div class="container mt-4">
-        <!-- Section de recherche et filtres -->
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="display-3 fw-bold text-white mb-4">
+                            Formez Votre Avenir
+                            <span class="text-warning">Avec Excellence</span>
+                        </h1>
+                        <p class="lead text-white-50 mb-4">
+                            Découvrez nos formations de qualité dans des domaines d'avenir. 
+                            Rejoignez une communauté d'apprenants passionnés et développez vos compétences 
+                            avec nos experts reconnus.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="#formations" class="btn btn-warning btn-lg me-3">
+                                <i class="bi bi-search me-2"></i>Découvrir nos formations
+                            </a>
+                            <a href="#about" class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-info-circle me-2"></i>En savoir plus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-stats">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-warning fw-bold">500+</h3>
+                                    <p class="text-white-50">Étudiants formés</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-warning fw-bold">50+</h3>
+                                    <p class="text-white-50">Formations disponibles</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-warning fw-bold">95%</h3>
+                                    <p class="text-white-50">Taux de réussite</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <h2 class="display-5 fw-bold mb-4">
+                            Notre École
+                            <span class="text-primary">d'Excellence</span>
+                        </h2>
+                        <p class="lead mb-4">
+                            Depuis plus de 20 ans, notre école s'engage à former les leaders de demain 
+                            avec des programmes innovants et des méthodes pédagogiques modernes.
+                        </p>
+                        <div class="features">
+                            <div class="feature-item mb-3" style="cursor: pointer;" onclick="showCertificationModal()">
+                                <i class="bi bi-award-fill text-warning me-3"></i>
+                                <span class="fw-semibold">Formations certifiantes reconnues</span>
+                                <i class="bi bi-arrow-right text-muted ms-2"></i>
+                            </div>
+                            <div class="feature-item mb-3" style="cursor: pointer;" onclick="showExpertsModal()">
+                                <i class="bi bi-people-fill text-primary me-3"></i>
+                                <span class="fw-semibold">Experts du secteur comme formateurs</span>
+                                <i class="bi bi-arrow-right text-muted ms-2"></i>
+                            </div>
+                            <div class="feature-item mb-3" style="cursor: pointer;" onclick="showPedagogyModal()">
+                                <i class="bi bi-laptop-fill text-success me-3"></i>
+                                <span class="fw-semibold">Méthodes pédagogiques innovantes</span>
+                                <i class="bi bi-arrow-right text-muted ms-2"></i>
+                            </div>
+                            <div class="feature-item mb-3" style="cursor: pointer;" onclick="showPartnershipsModal()">
+                                <i class="bi bi-building-fill text-info me-3"></i>
+                                <span class="fw-semibold">Partenariats avec les entreprises</span>
+                                <i class="bi bi-arrow-right text-muted ms-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="https://i0.wp.com/campusunivers.com/wp-content/uploads/2024/06/Universite-afrique-CP-Makers-africa.jpg?resize=800%2C373&ssl=1" 
+                             alt="Université africaine moderne" class="img-fluid rounded-3 shadow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Domains Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Nos Domaines d'Excellence</h2>
+                <p class="lead text-muted">Découvrez nos spécialités dans des secteurs porteurs</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <div class="domain-icon">
+                            <i class="bi bi-laptop text-primary"></i>
+                        </div>
+                        <h4>Informatique</h4>
+                        <p>Développement, IA, cybersécurité</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <div class="domain-icon">
+                            <i class="bi bi-graph-up text-success"></i>
+                        </div>
+                        <h4>Management</h4>
+                        <p>Leadership, stratégie, innovation</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <div class="domain-icon">
+                            <i class="bi bi-megaphone text-warning"></i>
+                        </div>
+                        <h4>Marketing</h4>
+                        <p>Digital, communication, branding</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="domain-card">
+                        <div class="domain-icon">
+                            <i class="bi bi-calculator text-danger"></i>
+                        </div>
+                        <h4>Finance</h4>
+                        <p>Analyse, gestion, investissement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formations Section -->
+    <section id="formations" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Nos Formations</h2>
+                <p class="lead text-muted">Découvrez notre catalogue de formations professionnelles</p>
+            </div>
+            
+            <!-- Search and Filter -->
         <div class="row mb-4">
             <div class="col-md-8">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Rechercher une formation...">
-                    <button class="btn btn-outline-secondary" type="button" onclick="searchTrainings()">🔍 Rechercher</button>
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi bi-search text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0" id="searchInput" 
+                               placeholder="Rechercher une formation...">
                 </div>
             </div>
             <div class="col-md-4">
-                <select class="form-select" id="domainFilter" onchange="filterByDomain()">
+                    <select class="form-select" id="domainFilter">
                     <option value="">Tous les domaines</option>
                     <option value="Informatique">Informatique</option>
                     <option value="Management">Management</option>
@@ -56,105 +217,431 @@
             </div>
         </div>
 
-        <!-- Tableau des formations -->
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">📋 Liste des Formations</h5>
-                <span class="badge bg-primary" id="trainingCount">0</span>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Domaine</th>
-                                <th>Titre</th>
-                                <th>Lieu</th>
-                                <th>Date</th>
-                                <th>Durée</th>
-                                <th>Prix</th>
-                                <th>Animateurs</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="trainingsTableBody">
+            <!-- Formations Grid -->
+            <div class="row g-4" id="formationsGrid">
                             <!-- Les formations seront chargées ici -->
-                        </tbody>
-                    </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Ce que disent nos étudiants</h2>
+                <p class="lead text-muted">Témoignages de nos anciens étudiants</p>
+                </div>
+            <div class="row g-4">
+                                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Une formation exceptionnelle qui m'a permis de décrocher un poste de développeur senior. Les formateurs sont excellents !"</p>
+                            </div>
+                        <div class="testimonial-author">
+                            <img src="data:image/jpeg;base64,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" 
+                                 alt="Mamadou Diallo" class="rounded-circle">
+                            <div>
+                                <h5 class="mb-0">Mamadou Diallo</h5>
+                                <small class="text-muted">Développeur Senior - Orange Sénégal</small>
+                            </div>
+                        </div>
+                            </div>
+                            </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"L'approche pratique et les projets concrets m'ont donné confiance pour lancer ma startup."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="data:image/jpeg;base64,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" 
+                                 alt="Fatou Sall" class="rounded-circle">
+                            <div>
+                                <h5 class="mb-0">Fatou Sall</h5>
+                                <small class="text-muted">CEO - DakarTech Solutions</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Une école qui forme vraiment aux métiers d'avenir. Je recommande vivement !"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="data:image/jpeg;base64,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" 
+                                 alt="Ousmane Ndiaye" class="rounded-circle">
+                            <div>
+                                <h5 class="mb-0">Ousmane Ndiaye</h5>
+                                <small class="text-muted">Data Scientist - MTN Sénégal</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Modal Ajout/Modification Formation -->
-    <div class="modal fade" id="trainingModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Ajouter une formation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="display-5 fw-bold mb-4">Prêt à transformer votre carrière ?</h2>
+            <p class="lead mb-4">Rejoignez notre communauté d'apprenants et donnez un nouvel élan à votre parcours professionnel.</p>
+            <a href="#formations" class="btn btn-warning btn-lg">
+                <i class="bi bi-rocket-takeoff me-2"></i>Commencer maintenant
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Nous Contacter</h2>
+                <p class="lead text-muted">Une question ? Un projet ? N'hésitez pas à nous contacter</p>
+            </div>
+            
+            <div class="row g-5">
+                <!-- Informations de contact -->
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <h4 class="text-primary mb-4">
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            Nos Coordonnées
+                        </h4>
+                        
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-start">
+                                <div class="contact-icon bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Adresse</h6>
+                                    <p class="text-muted mb-0">123 Avenue Cheikh Anta Diop<br>Dakar, Sénégal</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-start">
+                                <div class="contact-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="bi bi-telephone"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Téléphone</h6>
+                                    <p class="text-muted mb-0">+221 33 123 45 67<br>+221 77 123 45 67</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-start">
+                                <div class="contact-icon bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Email</h6>
+                                    <p class="text-muted mb-0">contact@institut-mansa-moussa.sn<br>info@institut-mansa-moussa.sn</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-start">
+                                <div class="contact-icon bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="bi bi-clock"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Horaires d'ouverture</h6>
+                                    <p class="text-muted mb-0">Lun-Ven: 8h00 - 18h00<br>Sam: 9h00 - 13h00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links mt-4">
+                            <h6 class="mb-3">Suivez-nous</h6>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="social-link bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="#" class="social-link bg-info text-white rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-twitter"></i>
+                                </a>
+                                <a href="#" class="social-link bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link bg-danger text-white rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form id="trainingForm">
-                        <input type="hidden" id="trainingId">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="domain" class="form-label">Domaine *</label>
-                                <select class="form-select" id="domain" required>
-                                    <option value="">Sélectionner un domaine</option>
-                                    <option value="Informatique">Informatique</option>
-                                    <option value="Management">Management</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Finance">Finance</option>
-                                    <option value="Ressources Humaines">Ressources Humaines</option>
-                                    <option value="Communication">Communication</option>
-                                    <option value="Vente">Vente</option>
-                                    <option value="Logistique">Logistique</option>
+                
+                <!-- Formulaire de contact -->
+                <div class="col-lg-8">
+                    <div class="contact-form bg-light p-4 rounded">
+                        <h4 class="text-primary mb-4">
+                            <i class="bi bi-chat-dots-fill me-2"></i>
+                            Envoyez-nous un message
+                        </h4>
+                        
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">Prénom *</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Nom *</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Téléphone</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Sujet *</label>
+                                <select class="form-select" id="subject" name="subject" required>
+                                    <option value="">Choisissez un sujet</option>
+                                    <option value="information">Demande d'information</option>
+                                    <option value="inscription">Inscription à une formation</option>
+                                    <option value="partenariat">Demande de partenariat</option>
+                                    <option value="stage">Demande de stage</option>
+                                    <option value="emploi">Demande d'emploi</option>
+                                    <option value="autre">Autre</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="title" class="form-label">Titre *</label>
-                                <input type="text" class="form-control" id="title" required maxlength="255">
+                            
+                            <div class="mb-3">
+                                <label for="formation" class="form-label">Formation d'intérêt</label>
+                                <select class="form-select" id="formation" name="formation">
+                                    <option value="">Aucune formation spécifique</option>
+                                    <option value="developpement-web">Développement Web</option>
+                                    <option value="data-science">Data Science</option>
+                                    <option value="cyber-securite">Cybersécurité</option>
+                                    <option value="management-projet">Management de Projet</option>
+                                    <option value="marketing-digital">Marketing Digital</option>
+                                    <option value="finance-entreprise">Finance d'Entreprise</option>
+                                    <option value="ressources-humaines">Ressources Humaines</option>
+                                    <option value="communication">Communication</option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="location" class="form-label">Lieu *</label>
-                                <input type="text" class="form-control" id="location" required maxlength="100">
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" 
+                                          placeholder="Décrivez votre demande en détail..." required></textarea>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="date" class="form-label">Date *</label>
-                                <input type="date" class="form-control" id="date" required>
+                            
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+                                    <label class="form-check-label" for="newsletter">
+                                        Je souhaite recevoir la newsletter avec les dernières actualités
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="duration" class="form-label">Durée (jours) *</label>
-                                <input type="number" class="form-control" id="duration" required min="1" max="30">
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-send me-2"></i>Envoyer le message
+                                </button>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="price" class="form-label">Prix (€) *</label>
-                                <input type="number" class="form-control" id="price" required min="0" step="0.01">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="animators" class="form-label">Animateurs *</label>
-                            <textarea class="form-control" id="animators" rows="2" required placeholder="Nom(s) des animateur(s)"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="program" class="form-label">Programme *</label>
-                            <textarea class="form-control" id="program" rows="6" required placeholder="Détail du programme jour par jour..."></textarea>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary" onclick="saveTraining()">Enregistrer</button>
+            </div>
+            
+            <!-- Carte Google Maps -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="map-container">
+                        <h4 class="text-primary mb-4">
+                            <i class="bi bi-map me-2"></i>
+                            Notre Localisation
+                        </h4>
+                        <div class="map-placeholder bg-light border rounded p-5 text-center">
+                            <i class="bi bi-geo-alt display-1 text-muted mb-3"></i>
+                            <h5 class="text-muted">Carte interactive</h5>
+                            <p class="text-muted">123 Avenue Cheikh Anta Diop, Dakar, Sénégal</p>
+                            <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary">
+                                <i class="bi bi-geo-alt me-2"></i>Voir sur Google Maps
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Institut Mansa Moussa -->
+                <div class="col-lg-3 mb-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-mortarboard-fill me-2"></i>
+                        Institut Mansa Moussa
+                    </h5>
+                    <div class="contact-info">
+                        <p class="mb-2">
+                            <i class="bi bi-telephone me-2"></i>
+                            +221 33 123 45 67
+                        </p>
+                        <p class="mb-2">
+                            <i class="bi bi-envelope me-2"></i>
+                            contact@institut-mansa-moussa.sn
+                        </p>
+                        <p class="mb-2">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            123 Avenue Cheikh Anta Diop<br>
+                            Dakar, Sénégal
+                        </p>
+                        <p class="mb-2">
+                            <i class="bi bi-clock me-2"></i>
+                            08h-12h et 15h-18h
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Infos utiles -->
+                <div class="col-lg-3 mb-4">
+                    <h6 class="mb-3">Infos utiles</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Appel d'offres
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Presse
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Publications
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Événements
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Actualités & informations
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Liens utiles -->
+                <div class="col-lg-3 mb-4">
+                    <h6 class="mb-3">Liens utiles</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Site officiel
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Bibliothèque
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>E-mail institut
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Formations
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Admission
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="bi bi-arrow-right me-2"></i>Partenariats
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Facebook Widget -->
+                <div class="col-lg-3 mb-4">
+                    <h6 class="mb-3">Nous suivre sur Facebook</h6>
+                    <div class="facebook-widget bg-white text-dark p-3 rounded">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="facebook-logo bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 40px; height: 40px;">
+                                <i class="bi bi-facebook"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Institut Mansa Moussa</h6>
+                                <small class="text-muted">Formation d'Excellence</small>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-2">2.5K followers</p>
+                        <button class="btn btn-primary btn-sm w-100">
+                            <i class="bi bi-facebook me-2"></i>Suivre la Page
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Social Media Icons -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <div class="social-icons">
+                        <a href="#" class="social-icon bg-white text-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-white text-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-white text-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-white text-primary rounded-circle d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright and Legal -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <hr class="border-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-white mb-0">&copy; 2024 Institut Mansa Moussa. Design Avec excellence</p>
+                        </div>
+                        <div class="legal-links">
+                            <a href="#" class="text-white text-decoration-none me-3">CGU</a>
+                            <a href="#" class="text-white text-decoration-none me-3">Mentions légales</a>
+                            <a href="#" class="text-white text-decoration-none">Infos & inscriptions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Modal Programme -->
     <div class="modal fade" id="programModal" tabindex="-1">
@@ -175,21 +662,797 @@
         </div>
     </div>
 
-    <!-- Modal Confirmation Suppression -->
-    <div class="modal fade" id="deleteModal" tabindex="-1">
-        <div class="modal-dialog">
+    <!-- Modal Certifications -->
+    <div class="modal fade" id="certificationModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">⚠️ Confirmation de suppression</h5>
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title">
+                        <i class="bi bi-award-fill me-2"></i>
+                        Formations Certifiantes Reconnues
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Êtes-vous sûr de vouloir supprimer cette formation ?</p>
-                    <p class="text-danger"><strong>Cette action est irréversible.</strong></p>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 class="text-primary mb-4">🎯 Notre Engagement d'Excellence</h4>
+                            <p class="lead mb-4">
+                                L'Institut Mansa Moussa s'engage à offrir des formations de qualité supérieure, 
+                                reconnues par les professionnels du secteur et les entreprises partenaires.
+                            </p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="certification-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <h6 class="mb-0">Certifications Internationales</h6>
+                                        </div>
+                                        <p class="text-muted small">Nos formations sont alignées sur les standards internationaux et préparent aux certifications reconnues mondialement.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="certification-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <h6 class="mb-0">Reconnaissance Professionnelle</h6>
+                                        </div>
+                                        <p class="text-muted small">Nos diplômes sont reconnus par les entreprises et les institutions professionnelles du secteur.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="certification-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <h6 class="mb-0">Partenariats Académiques</h6>
+                                        </div>
+                                        <p class="text-muted small">Collaborations avec des universités et écoles reconnues pour garantir la qualité de nos programmes.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="certification-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <h6 class="mb-0">Validation Continue</h6>
+                                        </div>
+                                        <p class="text-muted small">Nos programmes sont régulièrement mis à jour pour répondre aux évolutions du marché.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="certification-stats bg-light p-4 rounded">
+                                <h5 class="text-center mb-4">📊 Nos Chiffres</h5>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-warning fw-bold">95%</h3>
+                                    <p class="text-muted small">Taux de réussite aux certifications</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-primary fw-bold">50+</h3>
+                                    <p class="text-muted small">Partenaires entreprises</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-success fw-bold">1000+</h3>
+                                    <p class="text-muted small">Certifications délivrées</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">🏆 Nos Certifications Reconnues</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="certification-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-laptop text-primary me-2"></i>
+                                            <h6 class="mb-0">Informatique</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Certifications Microsoft</li>
+                                            <li>• Certifications Cisco</li>
+                                            <li>• Certifications AWS</li>
+                                            <li>• Certifications Google</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="certification-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-graph-up text-success me-2"></i>
+                                            <h6 class="mb-0">Management</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Certifications PMP</li>
+                                            <li>• Certifications PRINCE2</li>
+                                            <li>• Certifications Agile</li>
+                                            <li>• Certifications Lean</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="certification-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-megaphone text-warning me-2"></i>
+                                            <h6 class="mb-0">Marketing</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Certifications Google Ads</li>
+                                            <li>• Certifications Facebook</li>
+                                            <li>• Certifications HubSpot</li>
+                                            <li>• Certifications Salesforce</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Supprimer</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <a href="#formations" class="btn btn-warning" data-bs-dismiss="modal">
+                        <i class="bi bi-search me-2"></i>Découvrir nos formations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Experts -->
+    <div class="modal fade" id="expertsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-people-fill me-2"></i>
+                        Experts du Secteur comme Formateurs
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 class="text-primary mb-4">👨‍🏫 Notre Équipe d'Experts</h4>
+                            <p class="lead mb-4">
+                                L'Institut Mansa Moussa s'appuie sur un réseau d'experts reconnus dans leurs domaines, 
+                                combinant expertise technique et expérience pédagogique pour offrir des formations d'excellence.
+                            </p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="expert-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-star-fill text-warning me-2"></i>
+                                            <h6 class="mb-0">Profils Sélectionnés</h6>
+                                        </div>
+                                        <p class="text-muted small">Nos formateurs sont rigoureusement sélectionnés pour leur expertise technique et leur capacité pédagogique.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="expert-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-briefcase-fill text-info me-2"></i>
+                                            <h6 class="mb-0">Expérience Professionnelle</h6>
+                                        </div>
+                                        <p class="text-muted small">Minimum 10 ans d'expérience dans leur domaine avec des postes de responsabilité.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="expert-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-mortarboard-fill text-success me-2"></i>
+                                            <h6 class="mb-0">Formation Continue</h6>
+                                        </div>
+                                        <p class="text-muted small">Nos experts suivent régulièrement des formations pour rester à jour avec les dernières innovations.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="expert-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-award-fill text-danger me-2"></i>
+                                            <h6 class="mb-0">Certifications Reconnues</h6>
+                                        </div>
+                                        <p class="text-muted small">Tous nos formateurs possèdent les certifications les plus prestigieuses de leur secteur.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="experts-stats bg-light p-4 rounded">
+                                <h5 class="text-center mb-4">📈 Nos Chiffres</h5>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-primary fw-bold">25+</h3>
+                                    <p class="text-muted small">Experts formateurs</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-success fw-bold">15+</h3>
+                                    <p class="text-muted small">Années d'expérience moyenne</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-warning fw-bold">98%</h3>
+                                    <p class="text-muted small">Satisfaction des apprenants</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">🌟 Nos Experts par Domaine</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="expert-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-laptop text-primary me-2"></i>
+                                            <h6 class="mb-0">Informatique</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Dr. Amadou Diallo - Architecte Cloud</li>
+                                            <li>• Fatou Ndiaye - Data Scientist</li>
+                                            <li>• Mamadou Sall - Expert Cybersécurité</li>
+                                            <li>• Aissatou Ba - Développeuse Full-Stack</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="expert-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-graph-up text-success me-2"></i>
+                                            <h6 class="mb-0">Management</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Prof. Ousmane Diop - Stratégie d'entreprise</li>
+                                            <li>• Mariama Fall - Gestion de projet</li>
+                                            <li>• Abdou Thiam - Leadership transformationnel</li>
+                                            <li>• Aminata Sow - Innovation & R&D</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="expert-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-megaphone text-warning me-2"></i>
+                                            <h6 class="mb-0">Marketing</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Khady Diagne - Marketing Digital</li>
+                                            <li>• Modou Gueye - Brand Management</li>
+                                            <li>• Fatou Diop - Growth Hacking</li>
+                                            <li>• Samba Ndiaye - Marketing Automation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">🎯 Notre Approche Pédagogique</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-lightbulb-fill text-warning me-2"></i>
+                                            <h6 class="mb-0">Apprentissage Pratique</h6>
+                                        </div>
+                                        <p class="text-muted small">70% de pratique, 30% de théorie pour une formation efficace et applicable immédiatement.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-people-fill text-primary me-2"></i>
+                                            <h6 class="mb-0">Mentorat Personnalisé</h6>
+                                        </div>
+                                        <p class="text-muted small">Accompagnement individuel et suivi personnalisé pour chaque apprenant.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-briefcase-fill text-success me-2"></i>
+                                            <h6 class="mb-0">Projets Réels</h6>
+                                        </div>
+                                        <p class="text-muted small">Travail sur des projets concrets d'entreprises partenaires pour une expérience terrain.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-graph-up-arrow text-info me-2"></i>
+                                            <h6 class="mb-0">Évaluation Continue</h6>
+                                        </div>
+                                        <p class="text-muted small">Suivi des progrès et évaluation régulière pour garantir l'acquisition des compétences.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <a href="#formations" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="bi bi-search me-2"></i>Découvrir nos formations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Méthodes Pédagogiques -->
+    <div class="modal fade" id="pedagogyModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-laptop-fill me-2"></i>
+                        Méthodes Pédagogiques Innovantes
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 class="text-success mb-4">🚀 Notre Approche Innovante</h4>
+                            <p class="lead mb-4">
+                                L'Institut Mansa Moussa révolutionne l'apprentissage en combinant technologies modernes 
+                                et méthodes pédagogiques éprouvées pour créer une expérience d'apprentissage unique et efficace.
+                            </p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-laptop text-success me-2"></i>
+                                            <h6 class="mb-0">Apprentissage Hybride</h6>
+                                        </div>
+                                        <p class="text-muted small">Combinaison parfaite entre cours en présentiel et modules en ligne pour une flexibilité maximale.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-people-fill text-primary me-2"></i>
+                                            <h6 class="mb-0">Apprentissage Collaboratif</h6>
+                                        </div>
+                                        <p class="text-muted small">Travail en équipe et projets collaboratifs pour développer les compétences sociales.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-lightbulb-fill text-warning me-2"></i>
+                                            <h6 class="mb-0">Pensée Critique</h6>
+                                        </div>
+                                        <p class="text-muted small">Développement de la réflexion critique et de la résolution de problèmes complexes.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pedagogy-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-graph-up-arrow text-info me-2"></i>
+                                            <h6 class="mb-0">Évaluation Continue</h6>
+                                        </div>
+                                        <p class="text-muted small">Suivi des progrès en temps réel avec des outils d'évaluation innovants.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="pedagogy-stats bg-light p-4 rounded">
+                                <h5 class="text-center mb-4">📊 Nos Résultats</h5>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-success fw-bold">85%</h3>
+                                    <p class="text-muted small">Taux de rétention</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-primary fw-bold">92%</h3>
+                                    <p class="text-muted small">Satisfaction des apprenants</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-warning fw-bold">40%</h3>
+                                    <p class="text-muted small">Amélioration des performances</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-success mb-3">💡 Nos Méthodes Innovantes</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="method-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-play-circle text-success me-2"></i>
+                                            <h6 class="mb-0">Flipped Classroom</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Contenu théorique en ligne</li>
+                                            <li>• Exercices pratiques en classe</li>
+                                            <li>• Interaction maximale</li>
+                                            <li>• Apprentissage personnalisé</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="method-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-gear text-primary me-2"></i>
+                                            <h6 class="mb-0">Learning by Doing</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Projets concrets</li>
+                                            <li>• Simulations réalistes</li>
+                                            <li>• Expérience pratique</li>
+                                            <li>• Résolution de problèmes</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="method-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-people text-warning me-2"></i>
+                                            <h6 class="mb-0">Peer Learning</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Apprentissage entre pairs</li>
+                                            <li>• Mentorat inversé</li>
+                                            <li>• Collaboration active</li>
+                                            <li>• Partage de connaissances</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-success mb-3">🛠️ Technologies Innovantes</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="tech-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-vr text-info me-2"></i>
+                                            <h6 class="mb-0">Réalité Virtuelle</h6>
+                                        </div>
+                                        <p class="text-muted small">Immersion dans des environnements virtuels pour des simulations réalistes et des expériences d'apprentissage uniques.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="tech-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-robot text-success me-2"></i>
+                                            <h6 class="mb-0">Intelligence Artificielle</h6>
+                                        </div>
+                                        <p class="text-muted small">Adaptation automatique du contenu selon le niveau et le style d'apprentissage de chaque étudiant.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="tech-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-phone text-primary me-2"></i>
+                                            <h6 class="mb-0">Mobile Learning</h6>
+                                        </div>
+                                        <p class="text-muted small">Accès aux ressources d'apprentissage depuis n'importe quel appareil, à tout moment.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="tech-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-graph-up text-warning me-2"></i>
+                                            <h6 class="mb-0">Analytics Avancés</h6>
+                                        </div>
+                                        <p class="text-muted small">Suivi détaillé des progrès et identification des points d'amélioration en temps réel.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-success mb-3">🎯 Nos Objectifs Pédagogiques</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="objective-card p-3 border rounded text-center">
+                                        <i class="bi bi-target text-success mb-2" style="font-size: 2rem;"></i>
+                                        <h6 class="mb-2">Autonomie</h6>
+                                        <p class="text-muted small">Développer l'autonomie et la capacité d'apprentissage tout au long de la vie.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="objective-card p-3 border rounded text-center">
+                                        <i class="bi bi-lightbulb text-warning mb-2" style="font-size: 2rem;"></i>
+                                        <h6 class="mb-2">Créativité</h6>
+                                        <p class="text-muted small">Stimuler la créativité et l'innovation dans la résolution de problèmes.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="objective-card p-3 border rounded text-center">
+                                        <i class="bi bi-globe text-primary mb-2" style="font-size: 2rem;"></i>
+                                        <h6 class="mb-2">Adaptabilité</h6>
+                                        <p class="text-muted small">Préparer les apprenants aux défis d'un monde en constante évolution.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <a href="#formations" class="btn btn-success" data-bs-dismiss="modal">
+                        <i class="bi bi-search me-2"></i>Découvrir nos formations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Partenariats -->
+    <div class="modal fade" id="partnershipsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-building-fill me-2"></i>
+                        Partenariats avec les Entreprises
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 class="text-info mb-4">🤝 Notre Réseau de Partenaires</h4>
+                            <p class="lead mb-4">
+                                L'Institut Mansa Moussa développe des partenariats stratégiques avec les entreprises 
+                                leaders de leur secteur pour garantir la pertinence de nos formations et l'insertion professionnelle de nos étudiants.
+                            </p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="partnership-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-handshake-fill text-info me-2"></i>
+                                            <h6 class="mb-0">Partenariats Stratégiques</h6>
+                                        </div>
+                                        <p class="text-muted small">Collaborations durables avec des entreprises de référence pour adapter nos programmes aux besoins du marché.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="partnership-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-briefcase-fill text-success me-2"></i>
+                                            <h6 class="mb-0">Stages et Emplois</h6>
+                                        </div>
+                                        <p class="text-muted small">Accès privilégié aux opportunités de stages et d'emplois dans nos entreprises partenaires.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="partnership-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-lightbulb-fill text-warning me-2"></i>
+                                            <h6 class="mb-0">Projets Conjoints</h6>
+                                        </div>
+                                        <p class="text-muted small">Développement de projets innovants en collaboration avec nos partenaires pour une expérience terrain.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="partnership-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-graph-up-arrow text-primary me-2"></i>
+                                            <h6 class="mb-0">Formation Continue</h6>
+                                        </div>
+                                        <p class="text-muted small">Programmes de formation continue adaptés aux besoins spécifiques de nos partenaires.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="partnerships-stats bg-light p-4 rounded">
+                                <h5 class="text-center mb-4">📊 Nos Chiffres</h5>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-info fw-bold">50+</h3>
+                                    <p class="text-muted small">Entreprises partenaires</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-success fw-bold">85%</h3>
+                                    <p class="text-muted small">Taux d'insertion</p>
+                                </div>
+                                <div class="stat-item text-center mb-3">
+                                    <h3 class="text-warning fw-bold">200+</h3>
+                                    <p class="text-muted small">Stages par an</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-info mb-3">🏢 Nos Partenaires par Secteur</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="partner-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-laptop text-primary me-2"></i>
+                                            <h6 class="mb-0">Technologie</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Orange Sénégal</li>
+                                            <li>• MTN Sénégal</li>
+                                            <li>• Microsoft Afrique</li>
+                                            <li>• Google Afrique</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="partner-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-bank text-success me-2"></i>
+                                            <h6 class="mb-0">Finance</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• BCEAO</li>
+                                            <li>• BICIS</li>
+                                            <li>• Ecobank</li>
+                                            <li>• NSIA</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="partner-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-building text-warning me-2"></i>
+                                            <h6 class="mb-0">Industrie</h6>
+                                        </div>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li>• Total Sénégal</li>
+                                            <li>• Sonatel</li>
+                                            <li>• Sénégal Airlines</li>
+                                            <li>• Port de Dakar</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-info mb-3">🎯 Nos Programmes de Collaboration</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="program-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-calendar-check text-success me-2"></i>
+                                            <h6 class="mb-0">Stages Professionnels</h6>
+                                        </div>
+                                        <p class="text-muted small">Stages de 3 à 6 mois dans nos entreprises partenaires pour une expérience professionnelle concrète.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="program-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-people-fill text-primary me-2"></i>
+                                            <h6 class="mb-0">Mentorat Entreprise</h6>
+                                        </div>
+                                        <p class="text-muted small">Accompagnement personnalisé par des professionnels expérimentés de nos entreprises partenaires.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="program-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-lightbulb text-warning me-2"></i>
+                                            <h6 class="mb-0">Projets Innovants</h6>
+                                        </div>
+                                        <p class="text-muted small">Développement de solutions innovantes pour répondre aux défis réels de nos partenaires.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="program-item mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-graph-up text-info me-2"></i>
+                                            <h6 class="mb-0">Formation Sur Mesure</h6>
+                                        </div>
+                                        <p class="text-muted small">Programmes de formation adaptés aux besoins spécifiques de chaque entreprise partenaire.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-info mb-3">🌟 Témoignages de Nos Partenaires</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="testimonial-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxATEhUTEhIWFRUXFhUVFxYVFRUVFRcVFRUWFhUVFhUYHSggGBolGxUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGhAQGislHyUtKy0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLv/AABEIALkBEAMBIgACEQEDEQH/xAAcAAAABwEBAAAAAAAAAAAAAAAAAQIDBAUGBwj/xABBEAABAwIEAwUEBwYGAgMAAAABAAIDBBEFEiExBkFREyJhcYEykaHBBxQzQlJysSNistHh8BUWNFOCkrPxQ2Nz/8QAGQEAAwEBAQAAAAAAAAAAAAAAAAIDAQQF/8QAJBEAAwEAAgICAgIDAAAAAAAAAAECEQMhEjEyQQQiE2GRobH/2gAMAwEAAhEDEQA/AOtBKCSEpBgaNEEEAGlJKMLADQQQQAEEEEABBBBABoIkEAGggggAIIIIACCCCABZVeIYw1mjG53e5o9efp8EeKVoHcvb8Vt9dgs1W4g0aCwCV1g8xpLl4gl5uA8GtHzumW8SVAOha8dHNA/hsVUGrBTRmYNb28knmV/iRuKDHWPIa8dm46C5u0noHcj5geqtlztmIwlpDiCNrlaLgzGmzxujz5nxEC/MsN8pPU6Eeg6qirSVQ0aJBBBaIEViuNRmyjxW1csfxRF32lZTxGpazK0uEhyekwPorfD22Kmvaubyps6HMpGQkwZyJuAP8gtZHTE3KzvEWJzMByiw6q3i99kfJZ6OohKSQlBVEDCCAQQAaMIkFgCkEV0aAAggggAIIIIACCCCADQRIIACCCCAAgghdAHNMYxM9pL4yPHucQPgAqRzXm5N7I+I8XbHO/sezlOd5vmBFi8kWsddFUf5qLtHw5PEeyo0mdnG1iLNryBzCg1kL+uiDsXblB0t5hRJ+JiTZsJfbzA96RaytYl7EVFVZpb81ffRXWkV7W30fHI0jyGcfwrKVE2c6xljum7T79QVo/owgJxGPQ91krue2TL+rgqyuzn5H0dvREokFQ5gLL8R+01agrKcTu7zVlejUV9HuppUKgF1KmFgVyr5HS/iWEJGVZziJoyG45FTKer1Iuo+K2LfRdL+SOWfizeBKSQlJwDQRI1gBoIkEAGggggA7oXRIIAUgkoIAUgkoINFIJKCAFIJKCAFLJfSZUFlGLPLAZWBzm7hoDnEeuW3qtWqHjqg7ahmZ0aHf9SCT7rrK9DRnkjiTsJayMZQdC5paDa2pset7EEeiiQYe/V1yGjfN4bndXtUQXeO19iQNkmJ1OCDM8hoOjdSHHfXlZS82dP8afooanD5oWskcywf7PUdL+JCVHA8jVzmnkbm1rdPOy1fEmK08rWMcQ1v4ri/hbXdUdLK4aB2a2gNhqOtihW2tC+H6RVSQSXub76E79d1MoKyeIvyTOa5zbXBI0JBtp4j4J6rkPPXT3eXRNQRl4AAucwytG5N9h56I8ngLjSrs73wpM99FTPeSXOgiLidySwXJ8VaqNh1N2UUcf4GMZ/1aB8k+51lY5GGVleJW3c1aUzt6rNY7KC4arK9Aivw82NlYloKq6X2lP7UDdcs/I6a+IYoGi5sFCxCPT0U/wCtN1UDE5ARZdL+SOZembYJQKRmQzBOYOIJAeEO0CwBaNIDglXQAaCK6CDQ0aSXIswQYLQSM4R5kAKQScyLOEALQSc4RGQIAWgm+0CAkCAHETgDodRzBRXQQacJxtohqp2EaNkeGjo3MS34EKNJUQvZ3i0H1J9wWp+lvBXNkbVMF2vsyS33Xgd1x8CBbzaOqx9MGNGbs2uvuHAfqpNYdXG9WER1G38YNtva29RopDahoFgBp0Tsk8LhZlM0G+9zoPeq58bY7mwv0R7Gf69oTU1FyujfRVw6yVgq5CTkkIjZYZczQ05ydzYnQaWIvry5ZJLoV6G4Nwv6rRwwn2g3M/8AO85nD0Jt6J1JDktl+mpW3TbpPFIMnimIkKuw9x9lxCyeLMkjd3jdbcyeKhVNHG895D7MSx6Y6jnI1UefEbvtdbYYdDa2iivwOnvewuprj70q76wzzSN8x96rxVEyAXWydhMPgq6uwqFpu3dOTJxx0Kurscl+4qBgPinIXG/9VXES1k5/EFVyCRNj1VbZOtjTzKYu2F1mo3xotuHsWc9o7TQq7+vt6rOU+EPPgrSmwYDck+ZStoZJllHVtOyea9Mx0rW7J1YOBwulMiQCNBmCvq6H1fxQDktsiDcEfVz1SDSHqpIlSw5AEI0Z6piWkfyKtboLAKIseN0qFxVy5gKYlpWlZ2BE+sgBVVRxRA12UvF1Ax3G6SK7RNmdtZneA8zt8VzbEKtjnl4uSeuypPHb+hXco2+OVr62CqawXZHEHnxIeCPg159FzGKsy6aeu/8AVdT+iFuaKpeecjGa9Gsze79oVjfpF4UNHJ2jG3ppD3T/ALTj/wDG7w/CfTzW4x4U4q6M79bGth7rKDUvJTboxy56ADck7ABbPhj6Oamez6gGCLex+1cPBn3PN2vglSRSm/souDcDfV1UcYaSxrmvkPIRg3Nz42sPPwWvn4tqmySxl9nRyPjII/A4tzeRAB9V0Cmo6XD6dxa0RRsBc47k25k7ucdvguH4vjLp6qSoy5c7r5ejbAAHqbAa9VaI8kznuuzV/wCcKjnIPcg7iOuf7Dh7ll5DcBw2/vdanBCA61h7PzCm9XsZYNjHa4Hvv+CTLjlW72ZN/BS8XtcaDY/qoGFOtI3S+/6LNDBEmJ17fakTX+YqrnKfcrrE9QNBuslOe+7zWaGIsX8QVP8AuuUjDMTme8ZpCdCqN5U/Az3x5FamzGkaEZney0lWmGYHMdSLLY0+HRt2AUtrQEzYviU9LgrRvqrOKka3kn0YCUcIAIwjsjQAELIwjQAVkaCNABWQRpDpAEAGhnTT5bC6Z7YFpN0AS21IVZj3FVPSZRJmc55ADGAF1r2LjcgABQsFnuXl7tnHyAC5RxLinb1TpAdC45fyN7rfh+qrxR5PsndYujfVf0lOBOWFtuV3En1tZZTH+M6upu0vys/AzutPnzd6rOOfdEAupccr0iLpsWCTuUyS4aEg+QsjfImbpjEdV+hb7CpP/wBw/wDG1SeLuKI5GyU0ETKi2kzXakx21MMZsJrdQeWl1A+i6jc+hlaCWiSZweRocoa0EA8r7e9U2NYZHSvdFcmIEdk9hvLBMTcMiaNXjYuaNrjmbKMRNW9G5LqY6F8EVOH09SLwNayU5YKgue/K7nG7tNYnfHqTy60W2XD6fCZ6yV0QZZz9JxYhjZI3NLZwLaZmOOluq23F2PSUFCyAyZ6h7ezY/wC8GAWMrvEDQeNj1WcvHKaUjcV01tGU+lHijt5fqsTrxxu75Gz5By8m/r5BYTM0HUgX6myMNTgNtNzyVJnFhjekmmkI1BWlwHHQw/tG5gdLt0cP5rLhLa4rXKrpi616Ol1H1eZoLXXFvI+o5JOG0UMdjfXzWEpqwt5n0NlZNmjcNZHN/MTb3rl5OFz2uy0Wq6bw2Fc6Ei11hsRpgHEjmVbjBXkA5yQdjmuky8Pu3XO+STo/iozzo1NwiK7vRT4+HXFTaTAzE656IXJO4Y+NpHUBUN6p5koKy5uOaeie4DdUJmmzBDMFmDUy/iT7KmTqjANBnCMPCz5fKdik55BuUYaaPOE2ZQsz/izc2TNr5p10rzsVgGh7YKJW4oyMEkqoyyc3Jiup3Fh05IAuKHE2yjM3ZIxOpa1t7rOYC9rGHMfioeO42HNyxi/jySO1uDKXmmqmxVgjvcbKto8Sa5jrOWIdUuy2JUjBp7adSq50T3sex7EckLomk3kcbn90Hb1Kw5dd/kPmFZ4/VZpHWO2g9FRNm7/mD8LLtifGUc7esltelukUZrkbSnMwW4ptGSkrDTq30b14hwyWTKXFsrwGt1c5zgwNaPEkhZ2omfd7g9rHNuJp/aZACb/V4PxykklztySlcN1Rbhco7Xsm/WiJJB7Qj7FhIjHN5JDR535JsRnMxoiGdrbw0zvs6dn+/Unm876reKfbIc99pGk+jl7YI6iR7OygDWy5pDeZ4bmzyvHIHugDwXN+JMYfWVD536XNmt/Awey35nxJUzGsUGV8UcjpDIWmeYn7UxklrWN+7GCSR109aRoSuf3bKxT8EhB0So28zuiYLm/Ll/NOhaaKaEopovSgVpg6Amp6rLtukyzgD+91FHaHUW9VmgkaHgfEnds6N18r2k2/ebqD7rrok0zQ0LlvDlW+KpjdkabuDNNNHnKbX87+i6JX26Beb+XL89O38el44S6SZqFdOL+igwAAbBNzSDNsNlyyn5F6+JcPqFJp5C7YXSax1LELvN7evwCrMP4tjlk7OFh05nQe5d2HJ5GgFK7mQEl80TN3An++SiVExd7TvQaJqKnjGthf4rDeyY/FtO6PfoowqM27vco9c1tk5QU7SFhpRBrRVZh0+a00M5J0VDNExtRr0T0uOs7zYhmcOSS7z0PErvTSS1LWC7iFnsQ4nDrsjGbfUbKC+KSdt5XEeAKR+zaMrRc7KTptlEkiLRxkgl7vGyOpkGWzRySYyOe6LJfU6DotzbN1KCrjY4lS79lG6U7NsP8AsQB+qNkL3uswacymeMKyFkTafN+0uHuGlrWNg4HnrfwXXC7SOOu+zKVhzE2NioAkOcX6/JOTzc+zPm11/wCiiPm1F+RFrgg78yNF1Nk0WrSnAE1GE+8JjBDigSkSHRC6ALzhqYk5Gtzyhxkia77JhLWtfUS8rMDG28SVaSSRCNznPcafN337S1sw3AO4iBVBgsjR2gkeWwkMzsZ9rMQXZIWeBJN/IKbxJJoBLbtyG2ib9nTRDVsQ/fOl/LxVJeSc9zt4Ukshe5ziALkmw0AvyA5AbJDzfu+/5BE59giaNPHmpnQOBwSXyJOX+7FGGoAEYRVM9hYbnZCWUAKubIHOJcbAaLGwzSSHtCWJydgkMdFy1KU5zzoAR5fzQAtsxaQ7mCCPMG66NU1MpOy5vTRZnsZ+JzW2H7zgNT6rvJwpvQLl/IUvNK8Ta3DC/WphyQilkLu8OS3ZwlnQKuxHDWt1AUFMb6Kurz2Utaw9mRbks9wxE5sxsFZTYg4gjRM8Og9sbfFP5Ymxc7SNHI5/RO0so53T0kzGjvkLL4tj7Llke6kuVN5hV8TS9mllmj9FXP4jZ2nZRi58lT0tW4tsVLpKGON3a31KfmmUkyfDVNtB5nOms/onuzihJc0XJ96akf2knRNvyxEuJzfFS5H0l/otxrt/9HhK6QZjdo6Jp1QCcrR8EcEbphmF2jom62oZHYN3SxDpjXalAu1gJdqVCgdJI7QaXU6gonTO1Hd/VaiPCWtaLDZXfXo5137FYZhzWR3dYaXXK8XeJZXvcLlzidByJ0HoLD0XQeLMTMVPkB1f3f8Aj975D1XOJXXXV+PPTojy13hELWN2Gvh/RQa5txrop7tFEqCrMRCqWbQeSkZ7qngl5X2JT8U+qxUbhNkSYnd0InPumWu380aBb4A5/bjsmNMmV2R7/Yi2zTO8m39SEjFHRGQ9k4vaNO0d7Ujt3SHzJ08AFBo5Y847Rzgw3zBpsXjfs/UgBB7+lrnYcv8A0tT6F8f20U3U+A/X+/1TqbZYCyMvAWgOBMT1AHNMT1vRVM9S6+qWrSGmdJFVUk6DdOUlEwi98x8Top2CcMyynPIWxt5Z9yPIq+xnhiC0cdE6onkJOcho7O1v3WgAg259bqK5ZbLvhtTuGclpTbSNvmT/ACTTGyj2cjfK3zKsqzDaimfkkY5jrA5X63B2IOyRZjhe1jzV1j9HO9XsTg9M+Wohic5xD5I2nKMoyucA7vDbS69FLgXD2GMnqoYnXyud3rGxytBcbEbXy2v4ruoeNly/kPtItx+h8uVRjDtFZOWf4jeQNCoIoU0mExxNJJubeZ9yzTqt0Ti5iXguKSPLs5JT8MDZJCHaBLG5XkUuUvFyS6KGWZuY6kpv/Bgy7nWU1le2HuM1Wcxeune7fT4f1SKqr0sQzSXvtksO6KXQ00heHOPdVNTPOXxVphlVIZGg3y/qujm3xWHPwpeb0tpgC+zd1BihySEym4U/EJWsddvILNV9cZHc0ijySGd+LeF7VV1haPZQKXC5Huzu2U7h/Bnvs5+3ILYR0TWt12TN/UipfdDHDcTWsurCQlx02UamiGzdlZRR2CRsZHNOOZw6o7O4/ZtAtfm7vH4Ee5ZOZxHJWvFwbJVzu2s8i+w7lm7/APFZz69G06Oe7yBt8V6MfrCRy13THXSeIUOaQHRozHz7o8yikrmO3A9QU/hrs0rG6WvmIFgNP62S3aS0eIdNIssB4SbMM80jmX2ayw08SQo2N8MSwnNHeSPy7w/mt/QztFvFa7AcL7ZudwswkgD8VtDfwXmzzW609O+HjmcZwFkuiTIVuuPsNoY6ssgjsWj9qbktMjtbBt7Cwt7/AAWbkoY3Da3kSF6cJ1Onl00nhTQvu/yB/opTXXN+mg+acGEZb5HHX8X9E06CRu7dPDVbjRmpijIq+uqjsCnJprKsmfdJT6HlaxxrytdgGECPLJKwFxta/wBxR+GsB0Er/a3AOzfHxK0E9YxmXM3My+vXz0XHycm/qju4eJL9mW7HQOOoMzwNGtFw0eI2b6q0wOGbd0zIGbgDvvIOhGlgPioOCvfK0CJrYoub3WAAPMMGrj7h4rLcRgNnexk75IxbezRm+8Dl3/sKXFxu6xFublUTrGMdqpJKh7nyiXK4xggWaWtcbWFz1PNQXjmEoW5EeSQ8W8l6sypWHj3XlTZecBkfXo/yyfwFdTc8rnH0YUueqe78ETve9zQPgHLpcrSuH8juy3F8RPaFVOMUz5BoVZ3TZkUcKGDkgigADCC5RZnu1Ld/BR8Loi913kqfJIIzfcBNxrxT+2NyPWvpDuC0jbZpdD4prFqxgOVjUulZJUHMBYKZ/ggv3ipzPlXf+CtUpXRQRA22U+LG42DLbvKViszI2lrG3PgsnBTSPk9k3K66x+zjn30aWGpdKDp5K04b4aIOeUeQ6JnCMNdEW5tyt7TsDWgnolb66NS7Dp6drB0CZkeXmw2STMZHWGynwxBoSNjjUcYapEZumpHXKj18r+ykDPayPy/mym3xSDHEcdqhLNKL9ztHuNuZLifVQmFo+770yLbN2/XxTgIGp0C9JHJg7JGx/tNBSIqJrHB7L6cr7+RQbVj7rSfE6D4onVD+g9Bf+SKU0sZs1UvUaeixcAA2uP7utzgXHdGyB0Ursr2Nc4CxtIDdwaCNnX01t4eHGDNK03a4g9BY38xskNle5+aRwBAsNPa12NtlxL8fxr+jtr8lXP8AZbzVLnuc95u5zi5x6ucbk+8ohKoYclhy7zgwnNlR5lAD7J0yJtMwlZWncA+ar4sNhLs5Gt725XB6KQZLhNwS6kevvWPH7BavRZNqXAWB03SYJwHZnsEn7pJt7tj6qE5yT2qm+Ljf0UXNyL7Jlbik0jic2QbWBOtutvkoDJzs9lhyIOZqJ7gbhNxSG1kREx1IcnJXI9okSMHRRn6bFHHNfTl+iTlJIAFyTYDqToAmbJnSfoqoy2GaY7veGj8sYPzeR6Lal3IquwSjFPBHEDfI0Anq46uPvJVg4ghcF15U2daWIiSkg2TbhZPZdUTxbdIBgKZ5neY4m7blIfAS4sdvspPAP2z07V/6p35k3FKWoOa28Y/St7CMgmyoZ8XkDva0VjxDss3VbBVUqVqJunTxlnBiWd4aG5nH+9VssLw5rAHEDMVi+DPtj5rorPaCR028GUpLSG7DHukEjnWaNbKwkqHSWa3YJdb7Cawn5lLbxGyi3oYA0Jc0o2S+ShHdI+hx5zwk5rapk7o5liNONcXUYhq5mgaF2do5Wf3v1JHoqQtudVq/pM/1bf8A8mfxPWWavQ43so5qWMcaUsOTYRqgo5YeSjyMHmUZ3Ro9gNGa26cZKDzSJUup2j/L8ylbw3BV0Ycm2Iym0XBwOTb+vMJSJBg4yS/mgU0zdOFaDGS7vDx09QjvYpL/AJpTlgAy3Wk4Jw7PN2rh3Y9jy7T7vu39yzrFvuCf9MPzv+SjzVkdD8a2jXsltuj7ayjv2R8lxHQSHS31CcjkDhY7piBIG4TIw//Z" 
+                                                 alt="CEO Orange" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                                            <div>
+                                                <h6 class="mb-0">Issa Mané</h6>
+                                                <small class="text-muted">CEO, Orange Sénégal</small>
+                                            </div>
+                                        </div>
+                                        <p class="text-muted small">"L'Institut Mansa Moussa nous fournit des talents exceptionnels qui s'intègrent parfaitement dans nos équipes."</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="testimonial-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <img src="data:image/jpeg;base64,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" 
+                                                 alt="DRH MTN" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                                            <div>
+                                                <h6 class="mb-0">Aminata Mbow</h6>
+                                                <small class="text-muted">DRH, MTN Sénégal</small>
+                                            </div>
+                                        </div>
+                                        <p class="text-muted small">"La qualité de formation et l'adaptabilité des étudiants nous ont convaincus de renforcer notre partenariat."</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="testimonial-card p-3 border rounded">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <img src="data:image/jpeg;base64,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" 
+                                                 alt="Directeur BICIS" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                                            <div>
+                                                <h6 class="mb-0">Amadou Sy</h6>
+                                                <small class="text-muted">Directeur, BICIS</small>
+                                            </div>
+                                        </div>
+                                        <p class="text-muted small">"Les projets conjoints avec l'Institut nous ont permis d'innover et de développer de nouvelles solutions."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <a href="#formations" class="btn btn-info" data-bs-dismiss="modal">
+                        <i class="bi bi-search me-2"></i>Découvrir nos formations
+                    </a>
                 </div>
             </div>
         </div>

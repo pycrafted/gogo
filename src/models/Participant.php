@@ -10,7 +10,34 @@ class Participant {
     private $pdo;
     
     public function __construct() {
+        error_log("=== PARTICIPANT MODEL - CONSTRUCTEUR ===");
+        
+        // Vérifier quel fichier de base de données est utilisé
+        $configPath = __DIR__ . '/../config.php';
+        error_log("Chemin du fichier config: " . $configPath);
+        
+        if (file_exists($configPath)) {
+            error_log("Fichier config trouvé");
+        } else {
+            error_log("ERREUR: Fichier config non trouvé");
+        }
+        
         $this->pdo = getDatabaseConnection();
+        
+        // Vérifier la structure de la table
+        try {
+            $stmt = $this->pdo->prepare("PRAGMA table_info(participants)");
+            $stmt->execute();
+            $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            error_log("Structure de la table participants dans le modèle:");
+            foreach ($columns as $column) {
+                error_log("  - {$column['name']} ({$column['type']})");
+            }
+        } catch (Exception $e) {
+            error_log("ERREUR lors de la vérification de la structure: " . $e->getMessage());
+        }
+        
+        error_log("=== PARTICIPANT MODEL - CONSTRUCTEUR FIN ===");
     }
     
     /**
@@ -84,7 +111,8 @@ class Participant {
      */
     public function create($data) {
         try {
-            error_log("Participant::create - Données reçues: " . print_r($data, true));
+            error_log("=== PARTICIPANT MODEL - DEBUT DE CREATION ===");
+            error_log("Données reçues: " . print_r($data, true));
             
             // Vérifier la structure de la table
             $stmt = $this->pdo->prepare("PRAGMA table_info(participants)");
@@ -101,12 +129,10 @@ class Participant {
                 }
             }
             
+            error_log("Colonne position existe: " . ($hasPosition ? 'Oui' : 'Non'));
+            
             if ($hasPosition) {
-                $stmt = $this->pdo->prepare("
-                    INSERT INTO participants (training_id, first_name, last_name, email, phone, company, position, notes, status) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ");
-                
+                $sql = "INSERT INTO participants (training_id, first_name, last_name, email, phone, company, position, notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $params = [
                     $data['training_id'],
                     $data['first_name'],
@@ -119,11 +145,7 @@ class Participant {
                     'pending'
                 ];
             } else {
-                $stmt = $this->pdo->prepare("
-                    INSERT INTO participants (training_id, first_name, last_name, email, phone, company, notes, status) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                ");
-                
+                $sql = "INSERT INTO participants (training_id, first_name, last_name, email, phone, company, notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 $params = [
                     $data['training_id'],
                     $data['first_name'],
@@ -136,16 +158,33 @@ class Participant {
                 ];
             }
             
-            error_log("Paramètres d'insertion: " . print_r($params, true));
+            error_log("SQL à exécuter: " . $sql);
+            error_log("Paramètres: " . print_r($params, true));
             
-            $stmt->execute($params);
-            $newId = $this->pdo->lastInsertId();
-            error_log("Participant créé avec l'ID: " . $newId);
-            return $newId;
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($params);
+            
+            error_log("Résultat de l'exécution: " . ($result ? 'Succès' : 'Échec'));
+            
+            if ($result) {
+                $newId = $this->pdo->lastInsertId();
+                error_log("Nouvel ID généré: " . $newId);
+                error_log("=== PARTICIPANT MODEL - FIN DE CREATION ===");
+                return $newId;
+            } else {
+                error_log("Échec de l'insertion - Erreur PDO: " . print_r($stmt->errorInfo(), true));
+                throw new Exception("Impossible de créer l'inscription");
+            }
+            
         } catch (PDOException $e) {
-            error_log("Erreur lors de la création du participant: " . $e->getMessage());
+            error_log("ERREUR PDO lors de la création du participant: " . $e->getMessage());
+            error_log("Code d'erreur: " . $e->getCode());
             error_log("Stack trace: " . $e->getTraceAsString());
-            throw new Exception("Impossible de créer le participant");
+            throw new Exception("Impossible de créer l'inscription: " . $e->getMessage());
+        } catch (Exception $e) {
+            error_log("ERREUR GENERALE lors de la création du participant: " . $e->getMessage());
+            error_log("Stack trace: " . $e->getTraceAsString());
+            throw $e;
         }
     }
     
@@ -157,10 +196,15 @@ class Participant {
      */
     public function update($id, $data) {
         try {
+            error_log("=== PARTICIPANT MODEL - DEBUT DE MISE À JOUR ===");
+            error_log("ID du participant à mettre à jour: $id");
+            error_log("Données reçues: " . print_r($data, true));
+            
             // Vérifier la structure de la table
             $stmt = $this->pdo->prepare("PRAGMA table_info(participants)");
             $stmt->execute();
             $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            error_log("Structure de la table participants: " . print_r($columns, true));
             
             // Vérifier si la colonne position existe
             $hasPosition = false;
@@ -170,14 +214,14 @@ class Participant {
                     break;
                 }
             }
+            error_log("Colonne position existe: " . ($hasPosition ? 'Oui' : 'Non'));
+            
+            // Log du statut reçu
+            error_log("Statut reçu dans les données: " . ($data['status'] ?? 'Non défini'));
             
             if ($hasPosition) {
-                $stmt = $this->pdo->prepare("
-                    UPDATE participants 
-                    SET training_id = ?, first_name = ?, last_name = ?, email = ?, phone = ?, company = ?, position = ?, status = ?, notes = ? 
-                    WHERE id = ?
-                ");
-                $result = $stmt->execute([
+                $sql = "UPDATE participants SET training_id = ?, first_name = ?, last_name = ?, email = ?, phone = ?, company = ?, position = ?, status = ?, notes = ? WHERE id = ?";
+                $params = [
                     $data['training_id'],
                     $data['first_name'],
                     $data['last_name'],
@@ -188,14 +232,10 @@ class Participant {
                     $data['status'] ?? 'pending',
                     $data['notes'] ?? '',
                     $id
-                ]);
+                ];
             } else {
-                $stmt = $this->pdo->prepare("
-                    UPDATE participants 
-                    SET training_id = ?, first_name = ?, last_name = ?, email = ?, phone = ?, company = ?, status = ?, notes = ? 
-                    WHERE id = ?
-                ");
-                $result = $stmt->execute([
+                $sql = "UPDATE participants SET training_id = ?, first_name = ?, last_name = ?, email = ?, phone = ?, company = ?, status = ?, notes = ? WHERE id = ?";
+                $params = [
                     $data['training_id'],
                     $data['first_name'],
                     $data['last_name'],
@@ -205,12 +245,39 @@ class Participant {
                     $data['status'] ?? 'pending',
                     $data['notes'] ?? '',
                     $id
-                ]);
+                ];
             }
             
-            return $result && $stmt->rowCount() > 0;
+            error_log("SQL à exécuter: " . $sql);
+            error_log("Paramètres: " . print_r($params, true));
+            
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($params);
+            
+            error_log("Résultat de l'exécution: " . ($result ? 'Succès' : 'Échec'));
+            error_log("Nombre de lignes affectées: " . $stmt->rowCount());
+            
+            if ($result && $stmt->rowCount() > 0) {
+                error_log("✅ Mise à jour réussie");
+                
+                // Vérifier que la mise à jour a bien eu lieu
+                $verificationStmt = $this->pdo->prepare("SELECT status FROM participants WHERE id = ?");
+                $verificationStmt->execute([$id]);
+                $newStatus = $verificationStmt->fetchColumn();
+                error_log("Statut après mise à jour: " . $newStatus);
+                
+                error_log("=== PARTICIPANT MODEL - FIN DE MISE À JOUR ===");
+                return true;
+            } else {
+                error_log("❌ Aucune ligne mise à jour");
+                error_log("=== PARTICIPANT MODEL - FIN DE MISE À JOUR ===");
+                return false;
+            }
         } catch (PDOException $e) {
-            error_log("Erreur lors de la mise à jour du participant ID $id: " . $e->getMessage());
+            error_log("ERREUR PDO lors de la mise à jour du participant ID $id: " . $e->getMessage());
+            error_log("Code d'erreur: " . $e->getCode());
+            error_log("Stack trace: " . $e->getTraceAsString());
+            error_log("=== PARTICIPANT MODEL - FIN DE MISE À JOUR (ERREUR) ===");
             throw new Exception("Impossible de mettre à jour le participant");
         }
     }
@@ -239,6 +306,10 @@ class Participant {
      */
     public function emailExists($email, $excludeId = null) {
         try {
+            error_log("=== PARTICIPANT MODEL - DEBUT DE VÉRIFICATION D'EMAIL ===");
+            error_log("Email à vérifier: " . $email);
+            error_log("ID à exclure (pour la mise à jour): " . ($excludeId ?? 'Aucun'));
+            
             $sql = "SELECT COUNT(*) FROM participants WHERE email = ?";
             $params = [$email];
             
@@ -247,11 +318,23 @@ class Participant {
                 $params[] = $excludeId;
             }
             
+            error_log("SQL pour la vérification: " . $sql);
+            error_log("Paramètres: " . print_r($params, true));
+            
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
-            return $stmt->fetchColumn() > 0;
+            $count = $stmt->fetchColumn();
+            error_log("Nombre de résultats trouvés: " . $count);
+            error_log("=== PARTICIPANT MODEL - FIN DE VÉRIFICATION D'EMAIL ===");
+            return $count > 0;
         } catch (PDOException $e) {
-            error_log("Erreur lors de la vérification de l'email: " . $e->getMessage());
+            error_log("ERREUR PDO lors de la vérification de l'email: " . $e->getMessage());
+            error_log("Code d'erreur: " . $e->getCode());
+            error_log("Stack trace: " . $e->getTraceAsString());
+            return false;
+        } catch (Exception $e) {
+            error_log("ERREUR GENERALE lors de la vérification de l'email: " . $e->getMessage());
+            error_log("Stack trace: " . $e->getTraceAsString());
             return false;
         }
     }

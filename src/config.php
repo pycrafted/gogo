@@ -8,35 +8,57 @@
 define('DB_FILE', __DIR__ . '/../database/training_catalog.sqlite');
 
 /**
- * Établit la connexion à la base de données SQLite
- * @return PDO Instance de connexion PDO
- * @throws PDOException En cas d'erreur de connexion
+ * Obtient une connexion à la base de données
+ * @return PDO Connexion PDO
  */
 function getDatabaseConnection() {
-    // Options PDO pour SQLite
-    $pdoOptions = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
+    error_log("=== CONFIG - DEBUT DE CONNEXION BASE DE DONNÉES ===");
+    
+    // Déterminer le chemin de la base de données
+    $dbPath = __DIR__ . '/../database/training_catalog.db';
+    error_log("Chemin de la base de données: " . $dbPath);
+    
+    // Vérifier si le fichier existe
+    if (file_exists($dbPath)) {
+        error_log("✅ Fichier de base de données trouvé");
+        error_log("Taille du fichier: " . filesize($dbPath) . " bytes");
+    } else {
+        error_log("❌ Fichier de base de données NON TROUVÉ");
+        error_log("Création du fichier...");
+    }
     
     try {
-        // Créer le répertoire database s'il n'existe pas
-        $dbDir = dirname(DB_FILE);
-        if (!is_dir($dbDir)) {
-            mkdir($dbDir, 0755, true);
+        $pdo = new PDO('sqlite:' . $dbPath);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        error_log("✅ Connexion PDO réussie");
+        
+        // Vérifier la structure de la base de données
+        $stmt = $pdo->prepare("SELECT name FROM sqlite_master WHERE type='table'");
+        $stmt->execute();
+        $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        error_log("Tables dans la base: " . implode(', ', $tables));
+        
+        // Vérifier la structure de la table participants si elle existe
+        if (in_array('participants', $tables)) {
+            $stmt = $pdo->prepare("PRAGMA table_info(participants)");
+            $stmt->execute();
+            $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            error_log("Structure de la table participants:");
+            foreach ($columns as $column) {
+                error_log("  - {$column['name']} ({$column['type']})");
+            }
+        } else {
+            error_log("⚠️  Table 'participants' n'existe pas");
         }
         
-        $dsn = "sqlite:" . DB_FILE;
-        $pdo = new PDO($dsn, null, null, $pdoOptions);
-        
-        // Créer les tables si elles n'existent pas
-        createTablesIfNotExist($pdo);
-        
+        error_log("=== CONFIG - FIN DE CONNEXION BASE DE DONNÉES ===");
         return $pdo;
-    } catch (PDOException $e) {
-        error_log("Erreur de connexion à la base de données: " . $e->getMessage());
-        throw new PDOException("Impossible de se connecter à la base de données");
+        
+    } catch (Exception $e) {
+        error_log("❌ ERREUR de connexion à la base de données: " . $e->getMessage());
+        error_log("Stack trace: " . $e->getTraceAsString());
+        throw $e;
     }
 }
 

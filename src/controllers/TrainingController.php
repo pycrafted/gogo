@@ -20,6 +20,40 @@ class TrainingController {
     public function handleRequest() {
         try {
             $method = $_SERVER['REQUEST_METHOD'];
+            
+            // VÉRIFICATION D'AUTHENTIFICATION SEULEMENT POUR LES OPÉRATIONS D'ADMINISTRATION
+            if (in_array($method, ['POST', 'PUT', 'DELETE'])) {
+                session_start();
+                if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+                    error_log("❌ Accès non autorisé - Utilisateur non authentifié pour opération $method");
+                    header('HTTP/1.1 401 Unauthorized');
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'Authentification requise pour cette opération',
+                        'data' => null
+                    ], JSON_UNESCAPED_UNICODE);
+                    exit();
+                }
+                
+                // Vérifier l'expiration de la session (30 minutes)
+                $sessionTimeout = 30 * 60; // 30 minutes
+                if (isset($_SESSION['login_time']) && (time() - $_SESSION['login_time']) > $sessionTimeout) {
+                    error_log("❌ Session expirée - Déconnexion automatique");
+                    session_destroy();
+                    header('HTTP/1.1 401 Unauthorized');
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'Session expirée - Veuillez vous reconnecter',
+                        'data' => null
+                    ], JSON_UNESCAPED_UNICODE);
+                    exit();
+                }
+                
+                // Mettre à jour le temps de connexion
+                $_SESSION['login_time'] = time();
+                error_log("✅ Utilisateur authentifié: " . ($_SESSION['username'] ?? 'inconnu'));
+            }
+            
             $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             
             // Extraction de l'ID depuis l'URL

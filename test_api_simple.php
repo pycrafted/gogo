@@ -1,37 +1,51 @@
 <?php
-/**
- * Test simple de l'API avec des données de test
- */
-
-echo "🧪 Test simple de l'API...\n";
-
-// Simuler une requête POST
-$_SERVER['REQUEST_METHOD'] = 'POST';
-$_SERVER['REQUEST_URI'] = '/api/participants.php';
-$_SERVER['HTTP_CONTENT_TYPE'] = 'application/json';
+// Test simple de l'API
+echo "Test API\n";
 
 // Données de test
-$testData = [
+$data = [
     'training_id' => 1,
-    'first_name' => 'Test',
-    'last_name' => 'User',
-    'email' => 'test@example.com',
-    'phone' => '0123456789',
-    'company' => 'TestCorp',
+    'first_name' => 'sounatou',
+    'last_name' => 'niane',
+    'email' => 'sounatou@gmail.com',
+    'phone' => '770123456',
+    'company' => 'cmu',
     'position' => 'Développeur',
-    'notes' => 'Test simple'
+    'status' => 'confirmed', // Changement du statut
+    'notes' => 'Test API'
 ];
 
-echo "📤 Données de test: " . json_encode($testData) . "\n\n";
+// Créer le contexte
+$context = stream_context_create([
+    'http' => [
+        'method' => 'PUT',
+        'header' => [
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ],
+        'content' => json_encode($data)
+    ]
+]);
 
-// Inclure et exécuter le contrôleur
-require_once 'src/controllers/ParticipantController.php';
+echo "Envoi de la requête...\n";
 
-try {
-    $controller = new ParticipantController();
-    $controller->handleRequest();
-} catch (Exception $e) {
-    echo "❌ Erreur: " . $e->getMessage() . "\n";
-    echo "📋 Stack trace: " . $e->getTraceAsString() . "\n";
+// Appeler l'API
+$response = file_get_contents('http://localhost:8000/api/participants.php/12', false, $context);
+
+if ($response === false) {
+    echo "Erreur: Impossible d'appeler l'API\n";
+} else {
+    echo "Réponse reçue:\n";
+    echo $response . "\n";
+    
+    $data = json_decode($response, true);
+    if ($data && isset($data['success']) && $data['success']) {
+        echo "API appelée avec succès\n";
+        if (isset($data['data']['status'])) {
+            echo "Statut retourné: " . $data['data']['status'] . "\n";
+        }
+    } else {
+        echo "Erreur API: " . ($data['message'] ?? 'Erreur inconnue') . "\n";
+    }
 }
 ?> 
