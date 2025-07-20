@@ -43,7 +43,8 @@ class ParticipantController {
             $method = $_SERVER['REQUEST_METHOD'];
             
             // VÉRIFICATION D'AUTHENTIFICATION SEULEMENT POUR LES OPÉRATIONS D'ADMINISTRATION
-            if (in_array($method, ['POST', 'PUT', 'DELETE'])) {
+            // Les inscriptions (POST) sont autorisées sans authentification
+            if (in_array($method, ['PUT', 'DELETE'])) {
                 session_start();
                 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     error_log("❌ Accès non autorisé - Utilisateur non authentifié pour opération $method");
